@@ -1,0 +1,448 @@
+// import React, { useEffect, useRef } from "react";
+// import { motion } from "framer-motion";
+// import { FaArrowRight, FaChartLine, FaShieldAlt, FaLeaf } from "react-icons/fa";
+// import { useNavigate } from "react-router-dom";
+// import AnimatedSection from "./AnimatedSection";
+// import EarthModel from "./EarthModel";
+// import "../styles/Hero.css";
+
+// const Hero = () => {
+//   const cursorRef = useRef(null);
+//   const cursorTrailRef = useRef(null);
+
+//   const navigate = useNavigate();
+
+//   useEffect(() => {
+//     const cursor = cursorRef.current;
+//     const cursorTrail = cursorTrailRef.current;
+
+//     if (!cursor || !cursorTrail) return;
+
+//     const moveCursor = (e) => {
+//       cursor.style.transform = `translate(${e.clientX - 10}px, ${e.clientY - 10}px)`;
+//       cursorTrail.style.transform = `translate(${e.clientX - 20}px, ${e.clientY - 20}px)`;
+//     };
+
+//     const addHoverEffect = () => {
+//       cursor.style.transform = "scale(1.5)";
+//       cursor.style.backgroundColor = "#CFC4A2";
+//     };
+
+//     const removeHoverEffect = () => {
+//       cursor.style.transform = "scale(1)";
+//       cursor.style.backgroundColor = "transparent";
+//     };
+
+//     document.addEventListener("mousemove", moveCursor);
+
+//     const hoverElements = document.querySelectorAll("button, .stat-card, .hero-badge");
+//     hoverElements.forEach((el) => {
+//       el.addEventListener("mouseenter", addHoverEffect);
+//       el.addEventListener("mouseleave", removeHoverEffect);
+//     });
+
+//     return () => {
+//       document.removeEventListener("mousemove", moveCursor);
+//       hoverElements.forEach((el) => {
+//         el.removeEventListener("mouseenter", addHoverEffect);
+//         el.removeEventListener("mouseleave", removeHoverEffect);
+//       });
+//     };
+//   }, []);
+
+//   const stats = [
+//     { icon: <FaChartLine />, number: "500+", label: "Projects Completed" },
+//     { icon: <FaShieldAlt />, number: "100+", label: "Happy Clients" },
+//     { icon: <FaLeaf />, number: "50+", label: "Expert Team" },
+//   ];
+
+//   return (
+//     <section className="hero-section">
+//       <div className="cursor-effect" ref={cursorRef}></div>
+//       <div className="cursor-trail" ref={cursorTrailRef}></div>
+
+//       <div className="hero-container">
+//         {/* Left Section */}
+//         <AnimatedSection direction="left" delay={0.2}>
+//           <div className="hero-content">
+//             <motion.div className="hero-badge" whileHover={{ scale: 1.1 }}>
+//               <FaShieldAlt className="badge-icon" />
+//               <span>Leading Environmental Solutions</span>
+//             </motion.div>
+//             <h1 className="hero-title">
+//               Engineering <span className="gradient-text">a</span> Greener Tomorrow
+//             </h1>
+//             <h2 className="hero-title">
+//               Comprehensive Environmental Solutions{" "}
+//               <span className="gradient-text">for</span> a Sustainable Future
+//             </h2>
+//             <p className="hero-description">
+//               Welcome to Guardian Enviro Private Limited, a trusted leader in
+//               environmental engineering. We provide innovative solutions to
+//               address environmental challenges, focusing on sustainable
+//               development, resource optimization, and compliance with
+//               environmental regulations.
+//             </p>
+//             <div className="hero-cta">
+//               <motion.button
+//                 className="primary-button"
+//                 whileHover={{ scale: 1.05 }}
+//                 whileTap={{ scale: 0.95 }}
+//                 onClick={() => navigate("/services")}
+//               >
+//                 Explore Our Services
+//                 <FaArrowRight className="button-icon" />
+//               </motion.button>
+
+//               <motion.button
+//                 className="secondary-button"
+//                 whileHover={{ scale: 1.05 }}
+//                 whileTap={{ scale: 0.95 }}
+//                 onClick={() => navigate("/about")}
+//               >
+//                 Learn More About Us
+//                 <FaLeaf className="button-icon" />
+//               </motion.button>
+//             </div>
+//             <div className="hero-stats">
+//               {stats.map((stat, index) => (
+//                 <motion.div
+//                   key={index}
+//                   className="stat-card"
+//                   whileHover={{
+//                     y: -5,
+//                     boxShadow: "0 10px 20px rgba(0,0,0,0.2)",
+//                   }}
+//                 >
+//                   <div className="stat-icon">{stat.icon}</div>
+//                   <h3>{stat.number}</h3>
+//                   <p>{stat.label}</p>
+//                 </motion.div>
+//               ))}
+//             </div>
+//           </div>
+//         </AnimatedSection>
+
+//         {/* Right Section */}
+//         <AnimatedSection direction="right" delay={0.4}>
+//   <motion.div
+//     className="hero-visual"
+//     style={{
+//       borderRadius: "20px",
+//       overflow: "hidden",
+//       position: "relative",
+//       background: "linear-gradient(135deg, #1d3557, #457b9d)", // Gradient background
+//       padding: "10px", // Adds a slight border effect
+//     }}
+//     whileHover={{
+//       scale: 1.1,
+//       rotate: 10,
+//       boxShadow: "0 15px 40px rgba(0, 0, 0, 0.4)", // Enhanced shadow
+//     }}
+//     initial={{ opacity: 0, x: 50 }}
+//     animate={{ opacity: 1, x: 0 }}
+//     transition={{ duration: 1.2, ease: "easeInOut" }} // Slightly smoother animation
+//   >
+//     <motion.div
+//       className="earth-container"
+//       style={{
+//         borderRadius: "50%",
+//         boxShadow: "0 10px 30px rgba(0, 0, 0, 0.2)",
+//         position: "relative",
+//         zIndex: 2,
+//       }}
+//       whileHover={{
+//         scale: 1.15, // Larger scale for hover
+//         rotateZ: 15, // Slight tilt
+//         boxShadow: "0 25px 50px rgba(0, 0, 0, 0.5)", // Enhanced hover shadow
+//       }}
+//       initial={{ rotate: 0 }}
+//       animate={{ rotate: 360 }}
+//       transition={{
+//         repeat: Infinity,
+//         duration: 15, // Smooth, slower rotation
+//         ease: "linear",
+//       }}
+//     >
+//       <EarthModel />
+//     </motion.div>
+
+//     {/* Add animated particles */}
+//     <motion.div
+//       className="particle-effect"
+//       style={{
+//         position: "absolute",
+//         top: "50%",
+//         left: "50%",
+//         width: "120%",
+//         height: "120%",
+//         background: "radial-gradient(circle, rgba(69,123,157,0.1), transparent)",
+//         zIndex: 1,
+//         filter: "blur(20px)",
+//         transform: "translate(-50%, -50%)",
+//       }}
+//       initial={{ opacity: 0 }}
+//       animate={{ opacity: 0.5, scale: 1.2 }}
+//       transition={{
+//         repeat: Infinity,
+//         duration: 6,
+//         repeatType: "reverse",
+//       }}
+//     ></motion.div>
+
+//     {/* Add a glowing ring effect */}
+//     <motion.div
+//       className="glow-ring"
+//       style={{
+//         position: "absolute",
+//         top: "50%",
+//         left: "50%",
+//         width: "200px",
+//         height: "200px",
+//         borderRadius: "50%",
+//         border: "2px solid rgba(255, 255, 255, 0.4)",
+//         boxShadow: "0 0 15px rgba(255, 255, 255, 0.6)",
+//         zIndex: 0,
+//         transform: "translate(-50%, -50%)",
+//       }}
+//       initial={{ scale: 0.8, opacity: 0 }}
+//       animate={{ scale: 1, opacity: 1 }}
+//       transition={{
+//         repeat: Infinity,
+//         duration: 4,
+//         repeatType: "reverse",
+//       }}
+//     ></motion.div>
+//   </motion.div>
+// </AnimatedSection>
+
+//       </div>
+//     </section>
+//   );
+// };
+
+// export default Hero;
+// import React, { useEffect, useRef } from "react";
+// import { motion } from "framer-motion";
+// import { FaArrowRight, FaChartLine, FaShieldAlt, FaLeaf } from "react-icons/fa";
+// import { useNavigate } from "react-router-dom";
+// import AnimatedSection from "./AnimatedSection";
+// import EarthModel from "./EarthModel";
+// import "../styles/Hero.css";
+
+// const Hero = () => {
+//   const cursorRef = useRef(null);
+//   const cursorTrailRef = useRef(null);
+
+//   const navigate = useNavigate();
+
+//   useEffect(() => {
+//     const cursor = cursorRef.current;
+//     const cursorTrail = cursorTrailRef.current;
+
+//     if (!cursor || !cursorTrail) return;
+
+//     const moveCursor = (e) => {
+//       cursor.style.transform = `translate(${e.clientX - 10}px, ${e.clientY - 10}px)`;
+//       cursorTrail.style.transform = `translate(${e.clientX - 20}px, ${e.clientY - 20}px)`;
+//     };
+
+//     const addHoverEffect = () => {
+//       cursor.style.transform = "scale(1.5)";
+//       cursor.style.backgroundColor = "#CFC4A2";
+//     };
+
+//     const removeHoverEffect = () => {
+//       cursor.style.transform = "scale(1)";
+//       cursor.style.backgroundColor = "transparent";
+//     };
+
+//     document.addEventListener("mousemove", moveCursor);
+
+//     const hoverElements = document.querySelectorAll("button, .stat-card, .hero-badge");
+//     hoverElements.forEach((el) => {
+//       el.addEventListener("mouseenter", addHoverEffect);
+//       el.addEventListener("mouseleave", removeHoverEffect);
+//     });
+
+//     return () => {
+//       document.removeEventListener("mousemove", moveCursor);
+//       hoverElements.forEach((el) => {
+//         el.removeEventListener("mouseenter", addHoverEffect);
+//         el.removeEventListener("mouseleave", removeHoverEffect);
+//       });
+//     };
+//   }, []);
+
+//   const stats = [
+//     { icon: <FaChartLine />, number: "500+", label: "Projects Completed" },
+//     { icon: <FaShieldAlt />, number: "100+", label: "Happy Clients" },
+//     { icon: <FaLeaf />, number: "50+", label: "Expert Team" },
+//   ];
+
+//   return (
+//     <section className="hero-section">
+//       <div className="cursor-effect" ref={cursorRef}></div>
+//       <div className="cursor-trail" ref={cursorTrailRef}></div>
+
+//       <div className="hero-container">
+//         {/* Left Section */}
+//         <AnimatedSection direction="left" delay={0.2}>
+//           <div className="hero-content">
+//             <motion.div className="hero-badge" whileHover={{ scale: 1.1 }}>
+//               <FaShieldAlt className="badge-icon" />
+//               <span>Leading Environmental Solutions</span>
+//             </motion.div>
+//             <h1 className="hero-title">
+//               Engineering <span className="gradient-text">a</span> Greener Tomorrow
+//             </h1>
+//             <h2 className="hero-title">
+//               Comprehensive Environmental Solutions{" "}
+//               <span className="gradient-text">for</span> a Sustainable Future
+//             </h2>
+//             <p className="hero-description">
+//               Welcome to Guardian Enviro Private Limited, a trusted leader in
+//               environmental engineering. We provide innovative solutions to
+//               address environmental challenges, focusing on sustainable
+//               development, resource optimization, and compliance with
+//               environmental regulations.
+//             </p>
+//             <div className="hero-cta">
+//               <motion.button
+//                 className="primary-button"
+//                 whileHover={{ scale: 1.05 }}
+//                 whileTap={{ scale: 0.95 }}
+//                 onClick={() => navigate("/services")}
+//               >
+//                 Explore Our Services
+//                 <FaArrowRight className="button-icon" />
+//               </motion.button>
+
+//               <motion.button
+//                 className="secondary-button"
+//                 whileHover={{ scale: 1.05 }}
+//                 whileTap={{ scale: 0.95 }}
+//                 onClick={() => navigate("/about")}
+//               >
+//                 Learn More About Us
+//                 <FaLeaf className="button-icon" />
+//               </motion.button>
+//             </div>
+//             <div className="hero-stats">
+//               {stats.map((stat, index) => (
+//                 <motion.div
+//                   key={index}
+//                   className="stat-card"
+//                   whileHover={{
+//                     y: -5,
+//                     boxShadow: "0 10px 20px rgba(0,0,0,0.2)",
+//                   }}
+//                 >
+//                   <div className="stat-icon">{stat.icon}</div>
+//                   <h3>{stat.number}</h3>
+//                   <p>{stat.label}</p>
+//                 </motion.div>
+//               ))}
+//             </div>
+//           </div>
+//         </AnimatedSection>
+
+//         {/* Right Section */}
+//         <AnimatedSection direction="right" delay={0.4}>
+//   <motion.div
+//     className="hero-visual"
+//     style={{
+//       borderRadius: "20px",
+//       overflow: "hidden",
+//       position: "relative",
+//       background: "linear-gradient(135deg, #1d3557, #457b9d)", // Gradient background
+//       padding: "10px", // Adds a slight border effect
+//     }}
+//     whileHover={{
+//       scale: 1.1,
+//       rotate: 10,
+//       boxShadow: "0 15px 40px rgba(0, 0, 0, 0.4)", // Enhanced shadow
+//     }}
+//     initial={{ opacity: 0, x: 50 }}
+//     animate={{ opacity: 1, x: 0 }}
+//     transition={{ duration: 1.2, ease: "easeInOut" }} // Slightly smoother animation
+//   >
+//     <motion.div
+//       className="earth-container"
+//       style={{
+//         borderRadius: "50%",
+//         boxShadow: "0 10px 30px rgba(0, 0, 0, 0.2)",
+//         position: "relative",
+//         zIndex: 2,
+//       }}
+//       whileHover={{
+//         scale: 1.15, // Larger scale for hover
+//         rotateZ: 15, // Slight tilt
+//         boxShadow: "0 25px 50px rgba(0, 0, 0, 0.5)", // Enhanced hover shadow
+//       }}
+//       initial={{ rotate: 0 }}
+//       animate={{ rotate: 360 }}
+//       transition={{
+//         repeat: Infinity,
+//         duration: 15, // Smooth, slower rotation
+//         ease: "linear",
+//       }}
+//     >
+//       <EarthModel />
+//     </motion.div>
+
+//     {/* Add animated particles */}
+//     <motion.div
+//       className="particle-effect"
+//       style={{
+//         position: "absolute",
+//         top: "50%",
+//         left: "50%",
+//         width: "120%",
+//         height: "120%",
+//         background: "radial-gradient(circle, rgba(69,123,157,0.1), transparent)",
+//         zIndex: 1,
+//         filter: "blur(20px)",
+//         transform: "translate(-50%, -50%)",
+//       }}
+//       initial={{ opacity: 0 }}
+//       animate={{ opacity: 0.5, scale: 1.2 }}
+//       transition={{
+//         repeat: Infinity,
+//         duration: 6,
+//         repeatType: "reverse",
+//       }}
+//     ></motion.div>
+
+//     {/* Add a glowing ring effect */}
+//     <motion.div
+//       className="glow-ring"
+//       style={{
+//         position: "absolute",
+//         top: "50%",
+//         left: "50%",
+//         width: "200px",
+//         height: "200px",
+//         borderRadius: "50%",
+//         border: "2px solid rgba(255, 255, 255, 0.4)",
+//         boxShadow: "0 0 15px rgba(255, 255, 255, 0.6)",
+//         zIndex: 0,
+//         transform: "translate(-50%, -50%)",
+//       }}
+//       initial={{ scale: 0.8, opacity: 0 }}
+//       animate={{ scale: 1, opacity: 1 }}
+//       transition={{
+//         repeat: Infinity,
+//         duration: 4,
+//         repeatType: "reverse",
+//       }}
+//     ></motion.div>
+//   </motion.div>
+// </AnimatedSection>
+
+//       </div>
+//     </section>
+//   );
+// };
+
+// export default Hero;

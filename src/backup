@@ -1,0 +1,524 @@
+.contact-container {
+    min-height: 100vh;
+    padding: 80px 20px;
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  }
+  
+  .contact-content {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  
+  .contact-title {
+    text-align: center;
+    color: #2c3e50;
+    margin-bottom: 50px;
+    font-size: 2.5rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+  }
+  
+  .contact-wrapper {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 50px;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 20px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+    padding: 40px;
+    backdrop-filter: blur(10px);
+    transform-style: preserve-3d;
+    perspective: 1000px;
+  }
+  
+  .contact-info {
+    padding: 30px;
+  }
+  
+  .contact-info h2 {
+    color: #2c3e50;
+    margin-bottom: 20px;
+  }
+  
+  .detail-item {
+    display: flex;
+    align-items: center;
+    margin: 20px 0;
+    color: #34495e;
+  }
+  
+  .detail-item i {
+    margin-right: 15px;
+    color: #3498db;
+  }
+  
+  .contact-form {
+    padding: 30px;
+  }
+  
+  .form-group {
+    position: relative;
+    margin-bottom: 30px;
+  }
+  
+  .form-group label {
+    position: absolute;
+    top: -10px;
+    left: 10px;
+    background: white;
+    padding: 0 5px;
+    color: #2c3e50;
+    font-size: 0.9rem;
+  }
+  
+  .form-group input,
+  .form-group textarea {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    background: transparent;
+    transition: all 0.3s ease;
+  }
+  
+  .form-group input:focus,
+  .form-group textarea:focus {
+    border-color: #3498db;
+    box-shadow: 0 0 10px rgba(52, 152, 219, 0.2);
+  }
+  
+  .focus-border {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background-color: #3498db;
+    transition: width 0.4s;
+  }
+  
+  .form-group input:focus ~ .focus-border,
+  .form-group textarea:focus ~ .focus-border {
+    width: 100%;
+  }
+  
+  textarea {
+    min-height: 150px;
+    resize: vertical;
+  }
+  
+  .submit-button {
+    width: 100%;
+    padding: 15px;
+    background: #3498db;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    transform-style: preserve-3d;
+  }
+  
+  .submit-button:hover {
+    background: #2980b9;
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(52, 152, 219, 0.4);
+  }
+  
+  /* 3D Hover Effects */
+  .contact-wrapper:hover {
+    transform: rotateX(5deg) rotateY(5deg);
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 968px) {
+    .contact-wrapper {
+      grid-template-columns: 1fr;
+      gap: 30px;
+    }
+  
+    .contact-title {
+      font-size: 2rem;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .contact-container {
+      padding: 40px 15px;
+    }
+  
+    .contact-wrapper {
+      padding: 20px;
+    }
+  
+    .contact-info,
+    .contact-form {
+      padding: 15px;
+    }
+  
+    .contact-title {
+      font-size: 1.8rem;
+    }
+  }
+  
+  /* Animation Keyframes */
+  @keyframes float {
+    0% {
+      transform: translateY(0px);
+    }
+    50% {
+      transform: translateY(-10px);
+    }
+    100% {
+      transform: translateY(0px);
+    }
+  }
+  
+  /* Floating Animation for Elements */
+  .detail-item {
+    animation: float 3s ease-in-out infinite;
+  }
+  
+  /* Stagger Animation Delay for Detail Items */
+  .detail-item:nth-child(1) { animation-delay: 0s; }
+  .detail-item:nth-child(2) { animation-delay: 0.2s; }
+  .detail-item:nth-child(3) { animation-delay: 0.4s; }
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  import React, { useState } from 'react';
+import { motion } from 'framer-motion';
+import '../styles/Contact.css';
+
+function Contact() {
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    message: ''
+  });
+
+  const handleInputChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value
+    });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // Handle form submission logic here
+  };
+
+  return (
+    <motion.div 
+      className="contact-container"
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.8 }}
+    >
+      <div className="contact-content">
+        <motion.h1 
+          className="contact-title"
+          initial={{ scale: 0.5 }}
+          animate={{ scale: 1 }}
+          transition={{ duration: 0.5 }}
+        >
+          Contact Us
+        </motion.h1>
+
+        <div className="contact-wrapper">
+          <motion.div 
+            className="contact-info"
+            initial={{ x: -50, opacity: 0 }}
+            animate={{ x: 0, opacity: 1 }}
+            transition={{ delay: 0.2 }}
+          >
+            <h2>Get in Touch</h2>
+            <p>We'd love to hear from you. Please fill out the form below.</p>
+            <div className="contact-details">
+              <div className="detail-item">
+                <i className="fas fa-map-marker-alt"></i>
+                <span>Third floor No 13 st Johns Church road Banglore</span>
+              </div>
+              <div className="detail-item">
+                <i className="fas fa-phone"></i>
+                <span>+91 9980993104</span>
+              </div>
+              <div className="detail-item">
+                <i className="fas fa-envelope"></i>
+                <span>thanushdinesh07@gmail.com</span>
+              </div>
+            </div>
+          </motion.div>
+
+          <motion.form 
+            className="contact-form"
+            onSubmit={handleSubmit}
+            initial={{ x: 50, opacity: 0 }}
+            animate={{ x: 0, opacity: 1 }}
+            transition={{ delay: 0.4 }}
+          >
+            <div className="form-group">
+              <label htmlFor="name">Name</label>
+              <input
+                type="text"
+                id="name"
+                name="name"
+                value={formData.name}
+                onChange={handleInputChange}
+                required
+              />
+              <span className="focus-border"></span>
+            </div>
+
+            <div className="form-group">
+              <label htmlFor="email">Email</label>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                value={formData.email}
+                onChange={handleInputChange}
+                required
+              />
+              <span className="focus-border"></span>
+            </div>
+
+            <div className="form-group">
+              <label htmlFor="message">Message</label>
+              <textarea
+                id="message"
+                name="message"
+                value={formData.message}
+                onChange={handleInputChange}
+                required
+              ></textarea>
+              <span className="focus-border"></span>
+            </div>
+
+            <motion.button 
+              type="submit"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className="submit-button"
+            >
+              Send Message
+            </motion.button>
+          </motion.form>
+        </div>
+      </div>
+    </motion.div>
+  );
+}
+
+export default Contact;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+import React from "react";
+import { motion } from "framer-motion";
+import { useInView } from "react-intersection-observer";
+import "../styles/Home.css";
+import ChatBox from "./ChatBox";
+
+function Home() {
+  const [ref, inView] = useInView({
+    threshold: 0.3,
+    triggerOnce: true
+  });
+
+  const containerVariants = {
+    hidden: { opacity: 0, y: 50 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.8, staggerChildren: 0.3 }
+    }
+  };
+
+  const serviceVariants = {
+    hidden: { opacity: 0, x: -50 },
+    visible: {
+      opacity: 1,
+      x: 0,
+      transition: { duration: 0.5 }
+    }
+  };
+
+  const stats = [
+    { number: 15, label: "Projects Completed" },
+    { number: 100, label: "Happy Clients" },
+    { number: 15, label: "Years Experience" }
+  ];
+
+  return (
+    <div className="home-container">
+      {/* Hero Section */}
+      <motion.div 
+        className="hero-section"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 1 }}
+      >
+        <div className="hero-content">
+          <motion.h1
+            initial={{ y: -50, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ delay: 0.2 }}
+          >
+            Shaping a Sustainable Future
+          </motion.h1>
+          <motion.p
+            initial={{ y: 50, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ delay: 0.4 }}
+          >
+            Leading the way in environmental solutions and innovation
+          </motion.p>
+          <motion.button
+            className="cta-button"
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+          >
+            Learn More
+          </motion.button>
+        </div>
+      </motion.div>
+
+      {/* Mission Section */}
+      <motion.section 
+        className="mission-section"
+        ref={ref}
+        initial="hidden"
+        animate={inView ? "visible" : "hidden"}
+        variants={containerVariants}
+      >
+        <h2>Our Mission</h2>
+        <p>Dedicated to protecting and preserving our environment through innovative solutions and sustainable practices.</p>
+        
+        {/* Stats Counter */}
+        <div className="stats-container">
+          {stats.map((stat, index) => (
+            <motion.div 
+              key={index}
+              className="stat-box"
+              whileHover={{ scale: 1.1 }}
+              transition={{ type: "spring", stiffness: 300 }}
+            >
+              <h3>{stat.number}+</h3>
+              <p>{stat.label}</p>
+            </motion.div>
+          ))}
+        </div>
+      </motion.section>
+
+      {/* Services Section */}
+      {/* <motion.section 
+        className="services-section"
+        variants={containerVariants}
+        initial="hidden"
+        animate={inView ? "visible" : "hidden"}
+      >
+        <h2>Our Services</h2>
+        <div className="services-grid">
+          <motion.div 
+            className="service-card"
+            variants={serviceVariants}
+            whileHover={{ scale: 1.05 }}
+          >
+            <div className="service-icon">🌱</div>
+            <h3>Environmental Consulting</h3>
+            <p>Expert guidance for sustainable business practices.</p>
+            <ul className="service-features">
+              <li>Environmental Impact Assessment</li>
+              <li>Sustainability Planning</li>
+              <li>Regulatory Compliance</li>
+            </ul>
+            <button className="learn-more-btn">Learn More</button>
+          </motion.div>
+
+          <motion.div 
+            className="service-card"
+            variants={serviceVariants}
+            whileHover={{ scale: 1.05 }}
+          >
+            <div className="service-icon">♻️</div>
+            <h3>Waste Management</h3>
+            <p>Efficient and eco-friendly waste solutions.</p>
+            <ul className="service-features">
+              <li>Recycling Programs</li>
+              <li>Waste Reduction</li>
+              <li>Sustainable Disposal</li>
+            </ul>
+            <button className="learn-more-btn">Learn More</button>
+          </motion.div>
+
+          <motion.div 
+            className="service-card"
+            variants={serviceVariants}
+            whileHover={{ scale: 1.05 }}
+          >
+            <div className="service-icon">⚡</div>
+            <h3>Green Energy Solutions</h3>
+            <p>Renewable energy implementation.</p>
+            <ul className="service-features">
+              <li>Solar Power Systems</li>
+              <li>Wind Energy</li>
+              <li>Energy Efficiency</li>
+            </ul>
+            <button className="learn-more-btn">Learn More</button>
+          </motion.div>
+        </div>
+      </motion.section> */}
+
+      {/* Call to Action Section */}
+      {/* <motion.section 
+        className="cta-section"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 1 }}
+      >
+        <h2>Ready to Make a Difference?</h2>
+        <p>Join us in creating a sustainable future for generations to come.</p>
+        <motion.button 
+          className="contact-btn"
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.9 }}
+        >
+          Contact Us Today
+        </motion.button>
+      </motion.section> */}
+      <ChatBox />
+    </div>
+  );
+}
+
+export default Home;
