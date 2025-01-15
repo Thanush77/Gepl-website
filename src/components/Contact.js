@@ -94,9 +94,10 @@ const Contact = () => {
           }}
         >
           {[
-            { icon: FaPhone, title: "Phone", content: "+91 9980993104" },
+            { icon: FaPhone, title: "Phone", content: "+91 9845669840" },
             { icon: FaEnvelope, title: "Email", content: "thanushdinesh07@gmail.com" },
-            { icon: FaMapMarkerAlt, title: "Location", content: "Sy #13, Challaghatta Vill, Bangalore" }
+            { icon: FaMapMarkerAlt, title: "Location", content: "Sy #13, Challaghatta Village near BMTC Bus Depot kumbalagodu Bangalore Karnataka India 560074" },
+            { icon: FaMapMarkerAlt, title: "Corporate office location", content: "No 13,Icon group Third floor Near Brathi Nagar Police Station St Johns Church road Bangalore Karnataka India 560005" }
           ].map((item, index) => (
             <motion.div 
               key={index}
