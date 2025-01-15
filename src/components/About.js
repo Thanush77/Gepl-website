@@ -36,12 +36,12 @@ function About() {
   const teamMembers = [
     { 
       name: "Kirubananthan", 
-      role: "Director", 
+      role: " Assistant Manager", 
       img: AImage 
     },
     { 
       name: "Mr Akshay S", 
-      role: "Assistant Manager", 
+      role: "Director", 
       img: KirubananthanImage 
     },
     { 
