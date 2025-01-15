@@ -165,11 +165,11 @@ function About() {
   </motion.h2>
   <div className="industries-container">
     {[
-      { name: "Manufacturing", imgSrc: "manufacturing.jpg" },
-      { name: "Construction and Real Estate", imgSrc: "construction.jpg" },
-      { name: "Food and Beverages", imgSrc: "food.jpg" },
-      { name: "Pharmaceuticals", imgSrc: "pharmaceuticals.jpg" },
-      { name: "Renewable Energy", imgSrc: "renewable.jpg" },
+      { name: "Manufacturing" }, // , imgSrc: "manufacturing.jpg"
+      { name: "Construction and Real Estate" },   // , imgSrc: "construction.jpg"
+      { name: "Food and Beverages"},  //, imgSrc: "food.jpg" 
+      { name: "Pharmaceuticals"},   //, imgSrc: "pharmaceuticals.jpg" 
+      { name: "Renewable Energy" },        //, imgSrc: "renewable.jpg"   
     ].map((industry, index) => (
       <motion.div
         key={index}
@@ -179,9 +179,15 @@ function About() {
         viewport={{ once: true }}
         transition={{ delay: index * 0.2 }}
       >
-        <img src={industry.imgSrc} alt={industry.name} className="industry-img" />
+        
         <h3>{industry.name}</h3>
+        <div className="industry-icons">
+          <FaLeaf />
+          <FaRecycle />
+          <FaSeedling />
+        </div>
       </motion.div>
+      //<img src={industry.imgSrc} alt={industry.name} className="industry-img" />
     ))}
   </div>
 </section>
