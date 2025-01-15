@@ -195,7 +195,7 @@
 
 
 
-
+<!-- 
 
   import React, { useState } from 'react';
 import { motion } from 'framer-motion';
@@ -325,7 +325,7 @@ function Contact() {
 export default Contact;
 
 
-
+ -->
 
 
 
@@ -522,3 +522,348 @@ function Home() {
 }
 
 export default Home;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+import React, { useState } from 'react';
+import { motion } from 'framer-motion';
+import { FaIndustry, FaBolt, FaTrash, FaWater, FaCog, FaTools, FaTint } from 'react-icons/fa';
+import '../styles/Services.css';
+
+const Services = () => {
+  const [selectedService, setSelectedService] = useState(null);
+
+  const services = [
+    {
+      category: "Consulting & Project Services",
+      items: [
+        {
+          icon: <FaIndustry />,
+          title: "Common Effluent Treatment Plants",
+          description: "Custom CETP solutions for industrial waste management",
+          details: "A Common Effluent Treatment Plant (CETP) is a centralized facility designed to treat industrial effluents..."
+        },
+        {
+          icon: <FaBolt />,
+          title: "Waste to Energy Plants",
+          description: "Converting waste into sustainable energy",
+          details: "Details about Waste to Energy Plants go here."
+        },
+      ],
+    },
+  ];
+
+  return (
+    <div className="services">
+      <div className="services-hero">
+        <h1>Our Services</h1>
+        <div className="hero-line"></div>
+        <p>Comprehensive Environmental Solutions for a Sustainable Future</p>
+      </div>
+
+      {selectedService ? (
+        <motion.div
+          className="modal-view"
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.3 }}
+        >
+          <div className="modal-content">
+            <h2>{selectedService.title}</h2>
+            <p>{selectedService.details}</p>
+            <motion.button
+              className="back-btn"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              onClick={() => setSelectedService(null)}
+            >
+              Back
+            </motion.button>
+          </div>
+        </motion.div>
+      ) : (
+        services.map((serviceCategory, idx) => (
+          <div key={idx} className="services-section">
+            <h2 className="category-title">{serviceCategory.category}</h2>
+            <div className="services-grid">
+              {serviceCategory.items.map((service, index) => (
+                <motion.div
+                  key={index}
+                  className="service-card"
+                  whileHover={{ scale: 1.03 }}
+                  onClick={() => setSelectedService(service)}
+                >
+                  <div className="service-icon">{service.icon}</div>
+                  <h3>{service.title}</h3>
+                  <p>{service.description}</p>
+                  <motion.button
+                    className="learn-more"
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                  >
+                    Learn More
+                  </motion.button>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        ))
+      )}
+    </div>
+  );
+};
+
+export default Services;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+import React, { useState } from 'react';
+import { motion } from 'framer-motion';
+import { 
+  FaFileAlt, FaWater, FaIndustry, FaTrash, 
+  FaBolt, FaCog, FaTools, FaTint 
+} from 'react-icons/fa';
+import '../styles/Services.css';
+
+const Services = () => {
+  const [selectedService, setSelectedService] = useState(null);
+
+  const services = [
+    {
+      category: "Consulting & Project Services",
+      items: [
+        {
+          icon: <FaIndustry />,
+          title: "Common Effluent Treatment Plants",
+          description: "Custom CETP solutions for industrial waste management",
+          details: "A Common Effluent Treatment Plant (CETP) is a centralized facility designed to treat industrial effluents from multiple industries, ensuring that wastewater meets environmental standards before being discharged into water bodies or reused. CETPs are crucial for managing pollution, especially in areas with dense industrial activity, as they help reduce the burden on individual companies to build their own treatment plants. These plants typically use a combination of physical, chemical, and biological processes to treat the effluent, thereby preventing the contamination of water resources and promoting sustainable industrial practices."
+        },
+        {
+          icon: <FaIndustry />,
+          title: "Effluent Treatment Plants",
+          description: "Custom ETP solutions for industrial waste management",
+          details: "Details about Effluent Treatment Plants go here."
+        },
+        {
+          icon: <FaTrash />,
+          title: "Municipal Solid Waste Management",
+          description: "Urban waste management solutions",
+          details: "Details about Municipal Solid Waste Management go here."
+        },
+        {
+          icon: <FaBolt />,
+          title: "Waste to Energy Plants",
+          description: "Converting waste into sustainable energy",
+          details: "Details about Waste to Energy Plants go here."
+        },
+        {
+          icon: <FaWater />,
+          title: "Sewage Treatment Plants",
+          description: "Design and implementation of modern STP solutions",
+          details: "Details about Sewage Treatment Plants go here."
+        },
+        {
+          icon: <FaFileAlt />,
+          title: "Detailed Project Reports",
+          description: "Comprehensive analysis and feasibility studies for environmental projects",
+          details: "Details about Detailed Project Reports go here."
+        },
+      ]
+    },
+    {
+      category: "Engineering & Technical Services",
+      items: [
+        {
+          icon: <FaCog />,
+          title: "Engineering Services",
+          description: "Expert technical consulting and implementation",
+          details: "Details about Engineering Services go here."
+        },
+        {
+          icon: <FaTools />,
+          title: "CETP Installation & Operation",
+          description: "End-to-end sewage treatment solutions",
+          details: "Details about CETP Installation & Operation go here."
+        },
+        {
+          icon: <FaTools />,
+          title: "STP Installation & Operation",
+          description: "End-to-end sewage treatment solutions",
+          details: "Details about STP Installation & Operation go here."
+        },
+        {
+          icon: <FaCog />,
+          title: "ETP Installation & Operation",
+          description: "Industrial effluent treatment systems",
+          details: "Details about ETP Installation & Operation go here."
+        },
+        {
+          icon: <FaTint />,
+          title: "Rain Water Harvesting",
+          description: "Sustainable water conservation systems",
+          details: "Details about Rain Water Harvesting go here."
+        }
+      ]
+    }
+  ];
+
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: { staggerChildren: 0.1 }
+    }
+  };
+
+  const itemVariants = {
+    hidden: { y: 20, opacity: 0 },
+    visible: {
+      y: 0,
+      opacity: 1,
+      transition: {
+        type: "spring",
+        stiffness: 100
+      }
+    }
+  };
+
+  return (
+    <div className="services">
+      <motion.div 
+        className="services-hero"
+        initial={{ opacity: 0, y: -50 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8 }}
+      >
+        <h1>Our Services</h1>
+        <div className="hero-line"></div>
+        <p>Comprehensive Environmental Solutions for a Sustainable Future</p>
+      </motion.div>
+
+      {selectedService ? (
+        <motion.div
+          className="service-details"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.5 }}
+        >
+          <h2>{selectedService.title}</h2>
+          <p>{selectedService.details}</p>
+          <motion.button
+            className="back-btn"
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            onClick={() => setSelectedService(null)}
+          >
+            Back
+          </motion.button>
+        </motion.div>
+      ) : (
+        services.map((serviceCategory, idx) => (
+          <motion.section 
+            key={idx}
+            className="services-section"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={containerVariants}
+          >
+            <motion.h2 
+              className="category-title"
+              variants={itemVariants}
+            >
+              {serviceCategory.category}
+            </motion.h2>
+
+            <motion.div 
+              className="services-grid"
+              variants={containerVariants}
+            >
+              {serviceCategory.items.map((service, index) => (
+                <motion.div
+                  key={index}
+                  className="service-card"
+                  variants={itemVariants}
+                  whileHover={{
+                    scale: 1.03,
+                    rotateY: 5,
+                    boxShadow: "0 20px 30px rgba(0,0,0,0.2)"
+                  }}
+                  transition={{
+                    type: "spring",
+                    stiffness: 300,
+                    damping: 20
+                  }}
+                >
+                  <div className="card-content">
+                    <motion.div 
+                      className="service-icon"
+                      whileHover={{ rotate: 360 }}
+                      transition={{ duration: 0.5 }}
+                    >
+                      {service.icon}
+                    </motion.div>
+                    <h3>{service.title}</h3>
+                    <p>{service.description}</p>
+                    <motion.button
+                      className="learn-more"
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                      onClick={() => setSelectedService(service)}
+                    >
+                      Learn More
+                    </motion.button>
+                  </div>
+                  <div className="card-overlay"></div>
+                </motion.div>
+              ))}
+            </motion.div>
+          </motion.section>
+        ))
+      )}
+
+    </div>
+  );
+};
+
+export default Services;

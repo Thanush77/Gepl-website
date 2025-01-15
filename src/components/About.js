@@ -1,7 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { FaLeaf, FaRecycle, FaSeedling, FaUsers, FaAward, FaGlobeAmericas } from 'react-icons/fa';
-// Import images
 import AkshayImage from '../assets/Akshay.png';
 import ShivaRajanImage from '../assets/shivarajan.jpeg';      
 import AbeyJosephImage from '../assets/Abey Joseph.jpeg';     
@@ -78,7 +77,7 @@ function About() {
             animate={{ y: 0 }}
             transition={{ delay: 0.4 }}
           >
-            Leading the Way in Environmental Solutions
+            Transforming Environmental Management
           </motion.p>
         </div>
       </motion.div>
@@ -87,12 +86,13 @@ function About() {
       <section className="story-section">
         <h2>Our Story</h2>
         <p>
-        Guardian Enviro Private Limited was founded with a vision to revolutionize environmental management. 
-        Over the years, we have built a strong reputation for delivering innovative solutions that meet global environmental standards.
-        Our journey began with a commitment to environmental sustainability, and today, we are a leading player in the industry.
-        Our experienced team of engineers and consultants work collaboratively to design and implement solutions that not only solve environmental issues but also contribute to sustainable development.
-        With cutting-edge technologies and a deep understanding of environmental challenges, we ensure a lasting impact in every project we undertake.
-        </p>
+          At Guardian Enviro Private Limited, we are driven by a bold vision: to revolutionize the way environmental challenges are addressed and managed.
+           Founded by a consortium of exceptional minds, our mission is to build world-class infrastructure tailored to tackling
+          the most pressing environmental problems faced by municipalities, industrial estates, and corporations.
+          Our approach goes beyond generic solutions. We specialize in crafting tailor-made strategies designed to meet the unique
+          needs of various industries while ensuring full compliance with current environmental legislation. By simplifying complex 
+          environmental challenges, we provide actionable and effective solutions that align with global sustainability goals.</p>
+        
       </section>
 
       {/* Mission and Vision Section */}
@@ -154,21 +154,68 @@ function About() {
 
 
       <section className="industries-we-serve">
-        <motion.h2
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-        >
-          Industries We Serve
-        </motion.h2>
-        <ul>
-          <li>Manufacturing.</li>
-          <li>Construction and Real Estate.</li>
-          <li>Food and Beverages.</li>
-          <li>Parmaceticals.</li>
-          <li>Renewable Energy.</li>
-        </ul>
-      </section>
+  <motion.h2
+    initial={{ opacity: 0 }}
+    whileInView={{ opacity: 1 }}
+    viewport={{ once: true }}
+    transition={{ duration: 0.8 }}
+  >
+    Industries We Serve
+  </motion.h2>
+  <div className="industries-container">
+    {[
+      { name: "Manufacturing", imgSrc: "manufacturing.jpg" },
+      { name: "Construction and Real Estate", imgSrc: "construction.jpg" },
+      { name: "Food and Beverages", imgSrc: "food.jpg" },
+      { name: "Pharmaceuticals", imgSrc: "pharmaceuticals.jpg" },
+      { name: "Renewable Energy", imgSrc: "renewable.jpg" },
+    ].map((industry, index) => (
+      <motion.div
+        key={index}
+        className="industry-card"
+        initial={{ opacity: 0, scale: 0.9 }}
+        whileInView={{ opacity: 1, scale: 1 }}
+        viewport={{ once: true }}
+        transition={{ delay: index * 0.2 }}
+      >
+        <img src={industry.imgSrc} alt={industry.name} className="industry-img" />
+        <h3>{industry.name}</h3>
+      </motion.div>
+    ))}
+  </div>
+</section>
+<section className="industries-we-serve">
+  <motion.h2
+    initial={{ opacity: 0 }}
+    whileInView={{ opacity: 1 }}
+    viewport={{ once: true }}
+    transition={{ duration: 0.8 }}
+  >
+    Industries We Serve
+  </motion.h2>
+  <div className="industries-container">
+    {[
+      { name: "Manufacturing", imgSrc: "manufacturing.jpg" },
+      { name: "Construction and Real Estate", imgSrc: "construction.jpg" },
+      { name: "Food and Beverages", imgSrc: "food.jpg" },
+      { name: "Pharmaceuticals", imgSrc: "pharmaceuticals.jpg" },
+      { name: "Renewable Energy", imgSrc: "renewable.jpg" },
+    ].map((industry, index) => (
+      <motion.div
+        key={index}
+        className="industry-card"
+        initial={{ opacity: 0, scale: 0.9 }}
+        whileInView={{ opacity: 1, scale: 1 }}
+        viewport={{ once: true }}
+        transition={{ delay: index * 0.2 }}
+      >
+        <img src={industry.imgSrc} alt={industry.name} className="industry-img" />
+        <h3>{industry.name}</h3>
+      </motion.div>
+    ))}
+  </div>
+</section>
+
 
       {/* Team Section */}
       <section className="team-section">
