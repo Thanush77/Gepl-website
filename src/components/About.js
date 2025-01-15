@@ -185,7 +185,7 @@ function About() {
     ))}
   </div>
 </section>
-<section className="industries-we-serve">
+{/* <section className="industries-we-serve">
   <motion.h2
     initial={{ opacity: 0 }}
     whileInView={{ opacity: 1 }}
@@ -215,7 +215,7 @@ function About() {
       </motion.div>
     ))}
   </div>
-</section>
+</section> */}
 
 
       {/* Team Section */}
