@@ -4,7 +4,8 @@ import { FaLeaf, FaRecycle, FaSeedling, FaUsers, FaAward, FaGlobeAmericas } from
 import AkshayImage from '../assets/Akshay.png';
 import ShivaRajanImage from '../assets/shivarajan.jpeg';      
 import AbeyJosephImage from '../assets/Abey Joseph.jpeg';     
-import KirubananthanImage from '../assets/Kirubananthan.jpeg';     
+import KirubananthanImage from '../assets/A.png';   
+import AImage from '../assets/Kirubananthan.jpeg';   
 import "../styles/About.css";
 
 function About() {
@@ -34,12 +35,12 @@ function About() {
 
   const teamMembers = [
     { 
-      name: "Mr Akshay S", 
+      name: "Kirubananthan", 
       role: "Director", 
-      img: AkshayImage 
+      img: AImage 
     },
     { 
-      name: "Kirubananthan", 
+      name: "Mr Akshay S", 
       role: "Assistant Manager", 
       img: KirubananthanImage 
     },
