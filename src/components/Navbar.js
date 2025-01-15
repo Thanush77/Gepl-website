@@ -1,9 +1,8 @@
-// components/Navbar.jsx
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Link, useLocation } from "react-router-dom";
 import { FaHome, FaInfoCircle, FaTools, FaPhone, FaBars, FaTimes } from "react-icons/fa";
-import Logo from "../assets/logo2.png"; 
+import Logo from "../assets/logo3.png"; 
 import "../styles/Navbar.css";
 
 const Navbar = () => {
