@@ -3,13 +3,13 @@ import { motion } from "framer-motion";
 import { FaArrowRight, FaChartLine, FaShieldAlt, FaLeaf } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import AnimatedSection from "./AnimatedSection";
-import EarthModel from "./EarthModel";
+import VideoPlayer from "./videoplayer.jsx";
 import "../styles/Hero.css";
+import ChatBox from "./ChatBox";
 
 const Hero = () => {
   const cursorRef = useRef(null);
   const cursorTrailRef = useRef(null);
-
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -17,13 +17,17 @@ const Hero = () => {
     const cursorTrail = cursorTrailRef.current;
 
     const moveCursor = (e) => {
-      cursor.style.transform = `translate(${e.clientX - 10}px, ${e.clientY - 10}px)`;
-      cursorTrail.style.transform = `translate(${e.clientX - 20}px, ${e.clientY - 20}px)`;
+      cursor.style.transform = `translate(${e.clientX - 10}px, ${
+        e.clientY - 10
+      }px)`;
+      cursorTrail.style.transform = `translate(${e.clientX - 20}px, ${
+        e.clientY - 20
+      }px)`;
     };
 
     const addHoverEffect = () => {
       cursor.style.transform = "scale(1.5)";
-      cursor.style.backgroundColor = "#CFC4A2";
+      cursor.style.backgroundColor = "var(--primary-color)";
     };
 
     const removeHoverEffect = () => {
@@ -33,17 +37,17 @@ const Hero = () => {
 
     document.addEventListener("mousemove", moveCursor);
 
-    const buttons = document.querySelectorAll("button, .stat-card, .hero-badge");
-    buttons.forEach((button) => {
-      button.addEventListener("mouseenter", addHoverEffect);
-      button.addEventListener("mouseleave", removeHoverEffect);
+    const interactiveElements = document.querySelectorAll(".interactive");
+    interactiveElements.forEach((el) => {
+      el.addEventListener("mouseenter", addHoverEffect);
+      el.addEventListener("mouseleave", removeHoverEffect);
     });
 
     return () => {
       document.removeEventListener("mousemove", moveCursor);
-      buttons.forEach((button) => {
-        button.removeEventListener("mouseenter", addHoverEffect);
-        button.removeEventListener("mouseleave", removeHoverEffect);
+      interactiveElements.forEach((el) => {
+        el.removeEventListener("mouseenter", addHoverEffect);
+        el.removeEventListener("mouseleave", removeHoverEffect);
       });
     };
   }, []);
@@ -59,74 +63,142 @@ const Hero = () => {
       <div className="cursor-effect" ref={cursorRef}></div>
       <div className="cursor-trail" ref={cursorTrailRef}></div>
 
-      <div className="hero-container">
-        <AnimatedSection direction="left" delay={0.2}>
-          <div className="hero-content">
-            <motion.div className="hero-badge" whileHover={{ scale: 1.1 }}>
-              <FaShieldAlt className="badge-icon" />
-              <span>Leading Environmental Solutions</span>
-            </motion.div>
-            <h1 className="hero-title">
-              Engineering <span className="gradient-text">a</span> Greener Tomorrow
-            </h1>
-            <h2 className="hero-title">
-              Comprehensive Environmental Solutions{" "}
-              <span className="gradient-text">for</span> a Sustainable Future
-            </h2>
-            <p className="hero-description">
-              Welcome to Guardian Enviro Private Limited, a trusted leader in
-              environmental engineering. We provide innovative solutions to
-              address environmental challenges, focusing on sustainable
-              development, resource optimization, and compliance with
-              environmental regulations.
-            </p>
-            <div className="hero-cta">
-              <motion.button
-                className="primary-button"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                onClick={() => navigate("/services")}
-              >
-                Explore Our Services
-                <FaArrowRight className="button-icon" />
-              </motion.button>
-
-              <motion.button
-                className="secondary-button"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                onClick={() => navigate("/about")}
-              >
-                Learn More About Us
-                <FaLeaf className="button-icon" />
-              </motion.button>
-            </div>
-            <div className="hero-stats">
-              {stats.map((stat, index) => (
-                <motion.div
-                  key={index}
-                  className="stat-card"
-                  whileHover={{
-                    y: -5,
-                    boxShadow: "0 10px 20px rgba(0,0,0,0.2)",
-                  }}
-                >
-                  <div className="stat-icon">{stat.icon}</div>
-                  <h3>{stat.number}</h3>
-                  <p>{stat.label}</p>
-                </motion.div>
-              ))}
-            </div>
-          </div>
-        </AnimatedSection>
-        <AnimatedSection direction="right" delay={0.4}>
-          <motion.div className="hero-visual" whileHover={{ scale: 1.02 }}>
-            <EarthModel />
-          </motion.div>
-        </AnimatedSection>
+      <div className="hero-flex-container">
+        <div className="video-player-section">
+          <VideoPlayer className="video-background" />
+        </div>
+        
+        <div className="hero-content-section">
+          <HeroTitles />
+          <HeroDescription />
+          <HeroCTA />
+          <HeroStats stats={stats} />
+          
+        </div>
       </div>
     </section>
   );
 };
+
+const HeroBadge = () => (
+  <motion.div className="hero-badge interactive" whileHover={{ scale: 1.1 }}>
+    <FaShieldAlt className="badge-icon" />
+    <span>Leading Environmental Solutions</span>
+  </motion.div>
+);
+
+const HeroTitles = () => {
+  const titleVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: { 
+      opacity: 1, 
+      y: 0,
+      transition: {
+        duration: 0.8,
+        ease: "easeOut"
+      }
+    },
+    hover: {
+      scale: 1.02,
+      y: -5,
+      transition: {
+        duration: 0.3,
+        ease: "easeInOut"
+      }
+    }
+  };
+
+  return (
+    <div className="hero-titles-container">
+      <motion.div
+        className="hero-title-section"
+        initial="hidden"
+        animate="visible"
+        whileHover="hover"
+        variants={titleVariants}
+      >
+        <h1 className="hero-title" aria-label="Engineering a Greener Tomorrow">
+          Engineering <span className="gradient-text">a</span> Greener Tomorrow
+        </h1>
+      </motion.div>
+
+      <motion.div
+        className="hero-title-section"
+        initial="hidden"
+        animate="visible"
+        whileHover="hover"
+        variants={titleVariants}
+        transition={{ delay: 0.2 }}
+      >
+        <h2 className="hero-title" aria-label="Comprehensive Environmental Solutions for a Sustainable Future">
+          Comprehensive Environmental Solutions{" "}
+          <span className="gradient-text">for</span> a Sustainable Future
+        </h2>
+      </motion.div>
+    </div>
+  );
+};
+const HeroDescription = () => (
+  <motion.p
+    className="hero-description"
+    initial={{ opacity: 0, y: 20 }}
+    animate={{ opacity: 1, y: 0 }}
+    transition={{ delay: 0.4, duration: 0.8, ease: "easeOut" }}
+  >
+    Welcome to Guardian Enviro Private Limited, a trusted leader in
+    environmental engineering and compliance with environmental
+    regulations. We focus on sustainable development and resource
+    optimization.
+  </motion.p>
+);
+
+
+const HeroCTA = () => {
+  const navigate = useNavigate();
+
+  return (
+    <div className="hero-cta">
+      <motion.button
+        className="secondary-button interactive"
+        whileHover={{ scale: 1.05 }}
+        whileTap={{ scale: 0.95 }}
+        onClick={() => navigate("/about")}
+      >
+        Learn More About Us
+        <FaLeaf className="button-icon" />
+      </motion.button>
+
+      <motion.button
+        className="primary-button interactive"
+        whileHover={{ scale: 1.05 }}
+        whileTap={{ scale: 0.95 }}
+        onClick={() => navigate("/services")}
+      >
+        Explore Our Services
+        <FaArrowRight className="button-icon" />
+      </motion.button>
+    </div>
+  );
+};
+
+
+const HeroStats = ({ stats }) => (
+  <div className="hero-stats">
+    {stats.map((stat, index) => (
+      <motion.div
+        key={index}
+        className="stat-card interactive"
+        whileHover={{
+          y: -5,
+          boxShadow: "0 10px 20px rgba(0,0,0,0.2)",
+        }}
+      >
+        <div className="stat-icon">{stat.icon}</div>
+        <h3>{stat.number}</h3>
+        <p>{stat.label}</p>
+      </motion.div>
+    ))}
+  </div>
+);
 
 export default Hero;

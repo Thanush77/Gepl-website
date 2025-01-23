@@ -6,6 +6,7 @@
     "@formspree/react": "^2.5.1",
     "@react-three/drei": "^9.120.5",
     "@react-three/fiber": "^8.17.10",
+    "animate.css": "^4.1.1",
     "autoprefixer": "^10.4.x",
     "cra-template": "1.2.0",
     "framer-motion": "^11.15.0",

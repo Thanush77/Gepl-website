@@ -1,20 +1,49 @@
 /* styles/Navbar.css */
-.navbar {
+.top-bar {
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
-  z-index: 1000;
+  z-index: 1001; /* Higher than Navbar */
+  background-color: #333;
+  color: #fff;
+  padding: 0.5rem 1rem;
+  font-size: 0.875rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.navbar {
+  position: absolute;
+  top: 40px; /* Height of the TopBar */
+  left: 0;
+  right: 0;
+  z-index: 1000; /* Slightly below TopBar */
   padding: 1rem 0;
-  background: rgba(10, 25, 47, 0.85);
+  background: linear-gradient(135deg, #70bedf, #cdc2b6, #cda16f);
   backdrop-filter: blur(10px);
   transition: all 0.3s ease;
 }
 
 .navbar.scrolled {
-  background: rgba(10, 25, 47, 0.95);
+  background: linear-gradient(135deg, #70bedf, #cdc2b6, #cda16f);
   padding: 0.8rem 0;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.navbar-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+@media (max-width: 768px) {
+  .navbar {
+    top: 40px; /* Keep the offset for TopBar */
+  }
 }
 
 .navbar-container {
@@ -46,7 +75,7 @@
 .logo-text {
   font-size: 1.5rem;
   font-weight: 700;
-  color: #64ffda;
+  color: #5C4327 ;
   display: inline-block;
 }
 
@@ -62,7 +91,7 @@
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  color: #8892b0;
+  color: #000000;
   text-decoration: none;
   font-weight: 500;
   padding: 0.5rem 1rem;
@@ -70,11 +99,11 @@
 }
 
 .nav-link:hover {
-  color: #64ffda;
+  color: #000000;
 }
 
 .nav-link.active {
-  color: #64ffda;
+  color: #3292b2;
 }
 
 .nav-icon {
@@ -87,15 +116,15 @@
   left: 0;
   right: 0;
   height: 2px;
-  background: #64ffda;
+  background: #121313;
   border-radius: 2px;
 }
 
 /* Contact Button */
 .contact-button {
-  background: rgba(100, 255, 218, 0.1);
-  color: #64ffda;
-  border: 1px solid #64ffda;
+  background: rgba(6, 215, 166, 0.1);
+  color: #000000 ;
+  border: 1px solid #4F3727 ;
   padding: 0.8rem 1.5rem;
   border-radius: 4px;
   font-weight: 500;

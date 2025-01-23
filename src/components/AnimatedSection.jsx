@@ -1,64 +1,34 @@
+// AnimatedSection.jsx
 import React from 'react';
 import { motion } from 'framer-motion';
 
-const AnimatedSection = ({ children, direction = 'up', delay = 0, className = '' }) => {
+const AnimatedSection = ({ children, direction = 'left', delay = 0 }) => {
   const variants = {
     hidden: {
       opacity: 0,
-      y: direction === 'up' ? 50 : direction === 'down' ? -50 : 0,
-      x: direction === 'left' ? 50 : direction === 'right' ? -50 : 0,
-      scale: 0.95,
-    },
-    visible: {
-      opacity: 1,
-      y: 0,
-      x: 0,
-      scale: 1,
-      transition: {
-        type: "spring",
-        damping: 20,
-        stiffness: 100,
-        delay,
-        duration: 0.8,
-        when: "beforeChildren",
-        staggerChildren: 0.2
-      }
-    },
-    exit: {
-      opacity: 0,
-      y: direction === 'up' ? -50 : direction === 'down' ? 50 : 0,
       x: direction === 'left' ? -50 : direction === 'right' ? 50 : 0,
-      scale: 0.95,
-      transition: {
-        duration: 0.4,
-        ease: "easeOut"
-      }
-    }
-  };
-
-  const childVariants = {
-    hidden: { opacity: 0, y: 20 },
+      y: direction === 'up' ? 50 : direction === 'down' ? -50 : 0
+    },
     visible: {
       opacity: 1,
+      x: 0,
       y: 0,
       transition: {
-        duration: 0.5,
-        ease: "easeOut"
+        duration: 0.6,
+        delay: delay,
+        ease: 'easeOut'
       }
     }
   };
 
   return (
     <motion.div
-      className={`animated-section ${className}`}
       initial="hidden"
       animate="visible"
-      exit="exit"
       variants={variants}
+      viewport={{ once: true }}
     >
-      <motion.div variants={childVariants}>
-        {children}
-      </motion.div>
+      {children}
     </motion.div>
   );
 };

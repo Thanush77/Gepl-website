@@ -4,6 +4,7 @@ import { Link, useLocation } from "react-router-dom";
 import { FaHome, FaInfoCircle, FaTools, FaPhone, FaBars, FaTimes } from "react-icons/fa";
 import Logo from "../assets/logo3.png"; 
 import "../styles/Navbar.css";
+import TopBar from "./TopBar";
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -15,6 +16,7 @@ const Navbar = () => {
     { path: "/about", label: "About", icon: <FaInfoCircle /> },
     { path: "/services", label: "Services", icon: <FaTools /> },
     { path: "/contact", label: "Contact", icon: <FaPhone /> },
+    { path: "/careers", label: "Careers", icon: <FaPhone /> },
   ];
 
   useEffect(() => {
@@ -26,8 +28,13 @@ const Navbar = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  useEffect(() => {
+    setIsMobileMenuOpen(false);
+  }, [location]);
   return (
+    
     <>
+    <TopBar />
       <motion.nav
         className={`navbar ${isScrolled ? "scrolled" : ""}`}
         initial={{ y: -100 }}

@@ -4,8 +4,10 @@ import { FaLeaf, FaRecycle, FaSeedling, FaUsers, FaAward, FaGlobeAmericas } from
 import AkshayImage from '../assets/Akshay.png';
 import ShivaRajanImage from '../assets/shivarajan.jpeg';      
 import AbeyJosephImage from '../assets/Abey Joseph.jpeg';     
-import KirubananthanImage from '../assets/A.png';   
-import AImage from '../assets/Kirubananthan.jpeg';   
+import KirubananthanImage from '../assets/Kirubananthan.jpeg';   
+import BobbyImage from '../assets/bobby.png'; 
+import IWImage from '../assets/IW VIJAY.png';   
+import ThanushImage from '../assets/thanush.jpeg'; 
 import "../styles/About.css";
 
 function About() {
@@ -16,44 +18,34 @@ function About() {
   ];
 
   const values = [
-    {
-      icon: <FaLeaf />,
-      title: "Sustainability",
-      description: "Committed to environmental preservation",
-    },
-    {
-      icon: <FaRecycle />,
-      title: "Innovation",
-      description: "Leading edge eco-friendly solutions",
-    },
-    {
-      icon: <FaSeedling />,
-      title: "Growth",
-      description: "Continuous improvement and development",
-    },
+    { icon: <FaLeaf />, title: "Sustainability", description: "Committed to environmental preservation" },
+    { icon: <FaRecycle />, title: "Innovation", description: "Leading edge eco-friendly solutions" },
+    { icon: <FaSeedling />, title: "Growth", description: "Continuous improvement and development" },
+    // { icon: <FaSeedling />, title: "Growth", description: "Strong Technical Knowledge and wide Experience" },
   ];
 
   const teamMembers = [
-    { 
-      name: "Kirubananthan", 
-      role: " Assistant Manager", 
-      img: AImage 
-    },
-    { 
-      name: "Mr Akshay S", 
-      role: "Director", 
-      img: KirubananthanImage 
-    },
-    { 
-      name: "Shiva Rajan", 
-      role: "Process Engineer", 
-      img: ShivaRajanImage 
-    },
-    { 
-      name: "Abey Joseph ", 
-      role: "Project Coordinator", 
-      img: AbeyJosephImage  
-    }
+    { name: "T N Paramesh", role: "Director", img: IWImage },
+    { name: "MGR", role: "Director", img: IWImage },
+    { name: "Ishaan", role: "Assistant Manager", img: IWImage },
+    { name: "Dr C V Maheshwari", role: "Assistant Manager", img: IWImage },
+    { name: "Mr V S Prasad", role: "Directorr", img: IWImage },
+    { name: "Mr Rama Krishna Reddy Munnangi", role: "Director", img: IWImage },
+    { name: "Chetan", role: "Assistant Manager", img: IWImage },
+    { name: "Mr. Eshwar Reddy Purmandla", role: "Independent Director", img: IWImage },
+    { name: "Mr Chandra Shekar", role: "Assistant Manager", img: IWImage },
+    { name: "Bobby", role: "Assistant Manager", img: BobbyImage },
+    { name: "Mr. I W Vijaya Kumar", role: "Non-Executive Director", img: IWImage },
+    { name: "Mr Akshay S", role: "Assistant Manager", img: AkshayImage },
+    { name: "Mr Kirubanathan", role: "Assistant Manager", img: KirubananthanImage },
+    { name: "Shiva Rajan", role: "Process Engineer", img: ShivaRajanImage },
+    { name: "Abey Joseph ", role: "Project Coordinator", img: AbeyJosephImage },
+    { name: "Thanush", role: "Software Developer", img: ThanushImage },
+    // { name: "Akshay", role: "Assistant Manager", img: AkshayImage },
+    // { name: "Shiva Rajan", role: "Process Engineer", img: ShivaRajanImage },
+    // { name: "Abey Joseph", role: "Project Coordinator", img: AbeyJosephImage },
+    // { name: "Kirubananthan", role: "Environmental Specialist", img: KirubananthanImage },
+    
   ];
 
   return (
@@ -88,7 +80,7 @@ function About() {
         <h2>Our Story</h2>
         <p>
           At Guardian Enviro Private Limited, we are driven by a bold vision: to revolutionize the way environmental challenges are addressed and managed.
-           Founded by a consortium of exceptional minds, our mission is to build world-class infrastructure tailored to tackling
+          Founded by a consortium of exceptional minds, our mission is to build world-class infrastructure tailored to tackling
           the most pressing environmental problems faced by municipalities, industrial estates, and corporations.
           Our approach goes beyond generic solutions. We specialize in crafting tailor-made strategies designed to meet the unique
           needs of various industries while ensuring full compliance with current environmental legislation. By simplifying complex 
@@ -191,68 +183,39 @@ function About() {
     ))}
   </div>
 </section>
-{/* <section className="industries-we-serve">
+
+      {/* Team Section */}
+
+      <section className="team-section">
   <motion.h2
     initial={{ opacity: 0 }}
     whileInView={{ opacity: 1 }}
     viewport={{ once: true }}
-    transition={{ duration: 0.8 }}
+    transition={{ duration: 0.6, ease: 'easeOut' }}
   >
-    Industries We Serve
+    Our Leadership Team
   </motion.h2>
-  <div className="industries-container">
-    {[
-      { name: "Manufacturing", imgSrc: "manufacturing.jpg" },
-      { name: "Construction and Real Estate", imgSrc: "construction.jpg" },
-      { name: "Food and Beverages", imgSrc: "food.jpg" },
-      { name: "Pharmaceuticals", imgSrc: "pharmaceuticals.jpg" },
-      { name: "Renewable Energy", imgSrc: "renewable.jpg" },
-    ].map((industry, index) => (
+
+  <div className="team-grid">
+    {teamMembers.map((member, index) => (
       <motion.div
         key={index}
-        className="industry-card"
-        initial={{ opacity: 0, scale: 0.9 }}
-        whileInView={{ opacity: 1, scale: 1 }}
+        className="team-member"
+        initial={{ opacity: 0, y: 50 }}
+        whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
-        transition={{ delay: index * 0.2 }}
+        transition={{ delay: index * 0.2, duration: 0.6, ease: 'easeOut' }}
       >
-        <img src={industry.imgSrc} alt={industry.name} className="industry-img" />
-        <h3>{industry.name}</h3>
+        <div className="member-image">
+          <img src={member.img} alt={member.name} />
+        </div>
+        <h3>{member.name}</h3>
+        <p>{member.role}</p>
       </motion.div>
     ))}
   </div>
-</section> */}
+</section>
 
-
-      {/* Team Section */}
-      <section className="team-section">
-        <motion.h2
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-        >
-          Our Leadership Team
-        </motion.h2>
-        <div className="team-grid">
-          {teamMembers.map((member, index) => (
-            <motion.div
-              key={index}
-              className="team-member"
-              initial={{ opacity: 0, y: 50 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: index * 0.2 }}
-              whileHover={{ y: -10 }}
-            >
-              <div className="member-image">
-                <img src={member.img} alt={member.name} />
-              </div>
-              <h3>{member.name}</h3>
-              <p>{member.role}</p>
-            </motion.div>
-          ))}
-        </div>
-      </section>
 
 
 

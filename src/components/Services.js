@@ -3,6 +3,8 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { FaIndustry, FaBolt, FaTrash, FaWater, FaCog, FaTools, FaTint } from 'react-icons/fa';
 import '../styles/Services.css';
+import { FaRegNewspaper } from "react-icons/fa";
+import { FaHouseDamage } from "react-icons/fa";
 
 const Services = () => {
   const [selectedService, setSelectedService] = useState(null);
@@ -18,7 +20,7 @@ const Services = () => {
           details: "A Common Effluent Treatment Plant (CETP) is a centralized facility designed to treat industrial effluents from multiple industries, ensuring that wastewater meets environmental standards before being discharged into water bodies or reused. CETPs are crucial for managing pollution, especially in areas with dense industrial activity, as they help reduce the burden on individual companies to build their own treatment plants. These plants typically use a combination of physical, chemical, and biological processes to treat the effluent, thereby preventing the contamination of water resources and promoting sustainable industrial practices."
         },
         {
-          icon: <FaIndustry />,
+          icon: <FaHouseDamage />,
           title: "Effluent Treatment Plants",
           description: "Custom ETP solutions for industrial waste management",
           details: "An Effluent Treatment Plant (ETP) is an industrial facility designed to treat wastewater (or effluent) before it is discharged into the environment or reused. ETPs are used by industries to ensure that the water released does not pollute the surrounding environment or violate regulatory standards. "
@@ -42,10 +44,10 @@ const Services = () => {
           details: "A Sewage Treatment Plant (STP) is a facility designed to treat domestic wastewater or sewage, ensuring that harmful pollutants are removed before the water is released into the environment or reused. STPs typically use physical, chemical, and biological processes to treat the wastewater, reducing its pollution load. These plants are essential for maintaining public health and protecting water bodies from contamination, especially in urban and densely populated areas. By treating sewage, STPs help improve sanitation, prevent the spread of waterborne diseases, and promote sustainable water management."
         },
         {
-          icon: <FaWater/>,
+          icon: <FaRegNewspaper/>,
           title: "Detailed Project Reports",
           description: "Comprehensive analysis and feasibility studies for environmental projects",
-          details: "Details about Detailed Project Reports go here."
+          details: "A Detailed Project Report (DPR) is a comprehensive document that outlines all aspects of a proposed project. It serves as a blueprint for executing and managing the project, offering in-depth insights into its technical, financial, operational, and managerial components. Typically, a DPR is prepared for projects that require substantial investment, such as infrastructure, industrial setups, or Government initiatives."
         },
       ],
     },{
@@ -59,21 +61,9 @@ const Services = () => {
         },
         {
           icon: <FaTools />,
-          title: "CETP Installation & Operation",
+          title: "PMC Services",
           description: "End-to-end sewage treatment solutions",
           details: "Details about CETP Installation & Operation go here."
-        },
-        {
-          icon: <FaTools />,
-          title: "STP Installation & Operation",
-          description: "End-to-end sewage treatment solutions",
-          details: "Details about STP Installation & Operation go here."
-        },
-        {
-          icon: <FaCog />,
-          title: "ETP Installation & Operation",
-          description: "Industrial effluent treatment systems",
-          details: "Details about ETP Installation & Operation go here."
         },
         {
           icon: <FaTint />,

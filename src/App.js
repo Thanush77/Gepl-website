@@ -13,6 +13,9 @@ import Contact from "./components/Contact";
 import "./styles/App.css";
 import './styles/ChatBox.css';
 import { ModelPreloader } from './components/ModelPreloader';
+import CareersPage from './components/CareersPage';
+import ChatBox from "./components/ChatBox";
+
 
 // Layout component to handle the Hero section visibility
 const Layout = ({ children }) => {
@@ -24,6 +27,9 @@ const Layout = ({ children }) => {
       <Navbar />
       {isHomePage && <Hero />}
       {children}
+      <div className="content-container">
+        {children}
+      </div><ChatBox />  
       <Footer />
     </>
   );
@@ -66,6 +72,13 @@ const AnimatedRoutes = () => {
             <Contact />
           } 
         />
+        <Route 
+          path="/careers" 
+          element={
+            <CareersPage />
+          } 
+        />
+        
       </Routes>
     </AnimatePresence>
   );

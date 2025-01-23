@@ -76,7 +76,7 @@ const Contact = () => {
           animate={{ opacity: 1 }}
           transition={{ delay: 0.3, duration: 0.8 }}
         >
-          Get in touch with us for any inquiries
+          Get in touch, if you also care for the next generation. 
         </motion.p>
       </motion.div>
 
