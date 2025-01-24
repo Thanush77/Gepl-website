@@ -27,9 +27,7 @@ const Layout = ({ children }) => {
       <Navbar />
       {isHomePage && <Hero />}
       {children}
-      <div className="content-container">
-        {children}
-      </div><ChatBox />  
+      <ChatBox />  
       <Footer />
     </>
   );

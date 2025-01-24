@@ -182,6 +182,7 @@ const HeroCTA = () => {
 };
 
 
+
 const HeroStats = ({ stats }) => (
   <div className="hero-stats">
     {stats.map((stat, index) => (
