@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Link, useLocation } from "react-router-dom";
 import { FaHome, FaInfoCircle, FaTools, FaPhone, FaBars, FaTimes } from "react-icons/fa";
-import Logo from "../assets/logo3.png"; 
+import Logo from "../assets/Logofinal.png"; 
 import "../styles/Navbar.css";
 import TopBar from "./TopBar";
 

@@ -165,171 +165,153 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import '../styles/VideoPlayer.css';
-import BobbyImage from '../assets/efg.png';
-import B1Image from '../assets/abcd.png';
-import CETP from '../assets/cetp.png';
-import ETP from '../assets/etp.png';
-import B2Image from '../assets/efg.png';
-import A from '../assets/a.jpeg';
-import B from '../assets/b.jpg';
-import C from '../assets/c.jpeg';
-import D from '../assets/d.jpeg';
 import F from '../assets/ab.jpg';
 import G from '../assets/ab3.jpg';
 import H from '../assets/d.jpg';
 import O from '../assets/f.jpg';
 import I from '../assets/k.jpg';
 import J from '../assets/j.jpg';
-import K from '../assets/h.jpg';
 import L from '../assets/i.jpg';
 import M from '../assets/e.jpg';
-import N from '../assets/e.jpeg';
 
 const VideoPlayer = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [direction, setDirection] = useState(0);
 
   const slides = [
     {
       title: "Pollution is never a Solution",
-      image: N,
+      image: M,
       description: "Innovative solutions for a sustainable future",
-      buttonText: "VIEW PROJECTS",
       buttonLink: "/projects"
     },
     {
       title: "Effluent Treatment Plant",
       image: L,
       description: "Advanced eco-friendly technologies",
-      buttonText: "LEARN MORE",
-      buttonLink: "/learn-more"
+      
     },
     {
       title: "Pollution is never a Solution",
       image: L,
       description: "Innovative solutions for a sustainable future",
-      buttonText: "VIEW PROJECTS",
-      buttonLink: "/projects"
     },
     {
       title: "Pollution is never a Solution",
       image: M,
       description: "Innovative solutions for a sustainable future",
-      buttonText: "VIEW PROJECTS",
-      buttonLink: "/projects"
     },
     {
       title: "Pollution is never a Solution",
       image: O,
       description: "Innovative solutions for a sustainable future",
-      buttonText: "VIEW PROJECTS",
-      buttonLink: "/projects"
     },
     {
       title: "Pollution is never a Solution",
       image: F,
       description: "Innovative solutions for a sustainable future",
-      buttonText: "VIEW PROJECTS",
-      buttonLink: "/projects"
+      // buttonText: "VIEW PROJECTS",
+      // buttonLink: "/projects"
     },
     {
       title: "Pollution is never a Solution",
       image: G,
       description: "Innovative solutions for a sustainable future",
-      buttonText: "VIEW PROJECTS",
-      buttonLink: "/projects"
     },
     {
       title: "Pollution is never a Solution",
       image: H,
       description: "Innovative solutions for a sustainable future",
-      buttonText: "VIEW PROJECTS",
-      buttonLink: "/projects"
     },
     {
       title: "Pollution is never a Solution",
       image: I,
       description: "Innovative solutions for a sustainable future",
-      buttonText: "VIEW PROJECTS",
-      buttonLink: "/projects"
     },
     {
       title: "Pollution is never a Solution",
       image: J,
       description: "Innovative solutions for a sustainable future",
-      buttonText: "VIEW PROJECTS",
-      buttonLink: "/projects"
     },
   ];
 
   useEffect(() => {
     const timer = setInterval(
       () => setCurrentIndex((prev) => (prev + 1) % slides.length),
-      5000
+      6000
     );
     return () => clearInterval(timer);
   }, [slides.length]);
 
   const slideVariants = {
-    enter: { 
-      opacity: 0, 
-      x: '100%',  // Slide in from right
-      transition: { 
-        duration: 0.5, 
-        ease: 'easeInOut' 
-      }
-    },
+    enter: (direction) => ({
+      x: direction > 0 ? "100%" : "-100%",
+      opacity: 0,
+      scale: 0.95,
+    }),
     center: {
-      opacity: 1,
       x: 0,
-      transition: { 
-        duration: 0.8, 
-        ease: 'easeInOut' 
-      }
+      opacity: 1,
+      scale: 1,
+      transition: {
+        duration: 0.8,
+        ease: [0.4, 0, 0.2, 1],
+      },
     },
-    exit: { 
-      opacity: 0, 
-      x: '-100%',  // Slide out to left
-      transition: { 
-        duration: 0.5, 
-        ease: 'easeInOut' 
-      }
-    }
+    exit: (direction) => ({
+      x: direction < 0 ? "100%" : "-100%",
+      opacity: 0,
+      scale: 0.95,
+      transition: {
+        duration: 0.8,
+        ease: [0.4, 0, 0.2, 1],
+      },
+    }),
+  };
+
+  const paginate = (newDirection) => {
+    setDirection(newDirection);
+    setCurrentIndex((prev) => (prev + newDirection + slides.length) % slides.length);
   };
 
   return (
     <div className="video-player-wrapper">
-      <AnimatePresence mode="wait">
+      <AnimatePresence initial={false} custom={direction} mode="wait">
         <motion.div
           key={currentIndex}
           className="slide"
+          custom={direction}
           variants={slideVariants}
           initial="enter"
           animate="center"
           exit="exit"
           style={{ backgroundImage: `url(${slides[currentIndex].image})` }}
         >
-          <div className="content-overlay">
+          <motion.div
+            className="content-overlay"
+            initial={{ y: 50, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ delay: 0.2, duration: 0.5 }}
+          >
             <h1 className="content-title">{slides[currentIndex].title}</h1>
             <p className="content-description">{slides[currentIndex].description}</p>
-            <button className="content-button">{slides[currentIndex].buttonText}</button>
-          </div>
+            {slides[currentIndex].buttonText && (
+              <a href={slides[currentIndex].buttonLink} className="content-button">
+                {slides[currentIndex].buttonText}
+              </a>
+            )}
+          </motion.div>
         </motion.div>
       </AnimatePresence>
-      <button
-        className="slider-button prev"
-        onClick={() => setCurrentIndex((currentIndex - 1 + slides.length) % slides.length)}
-      >
+
+      <button className="slider-button prev" onClick={() => paginate(-1)}>
         ←
       </button>
-      <button
-        className="slider-button next"
-        onClick={() => setCurrentIndex((currentIndex + 1) % slides.length)}
-      >
+      <button className="slider-button next" onClick={() => paginate(1)}>
         →
       </button>
     </div>
   );
 };
-
 
 export default VideoPlayer;

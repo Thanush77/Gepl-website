@@ -1,7 +1,7 @@
 .chat-toggle {
   position: fixed;
   bottom: 20px;
-  right: 20px;
+  left: 20px;
   background-color: #15ced4;
   color: white;
   border: none;

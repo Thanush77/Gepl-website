@@ -10,7 +10,7 @@ const ChatBox = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState([
     { 
-      text: "👋 Hello! I'm Thanush from Guardian Enviro Private Limited. How can I help you with your environmental solutions today?", 
+      text: "👋 Hello! I'm Daniya from Guardian Enviro Private Limited. How can I help you with your environmental solutions today?", 
       sender: 'bot', 
       id: 1 
     }
@@ -136,7 +136,7 @@ const ChatBox = () => {
           >
             <div className="chat-header">
               <div className="header-content">
-                <h3>💬 Sarah | Guardian Enviro Solutions</h3>
+                <h3>💬 Sarah | Guardian Enviro Private Limited</h3>
                 <div className="contact-quick-info">
                   <span><FaPhone /> +91 9980993104</span>
                   <span><FaEnvelope /> solutions@guardianenviro.com</span>
