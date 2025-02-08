@@ -1,6 +1,6 @@
 /* styles/Navbar.css */
 .top-bar {
-  position: fixed;
+  position: sticky;
   top: 0;
   left: 0;
   right: 0;
@@ -12,10 +12,16 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  transition: all 0.3s ease;
+}
+
+.top-bar.scrolled {
+  background-color: #222;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
 }
 .navbar {
-  position: absolute;
-  top: 40px; /* Height of the TopBar */
+  position: fixed;
+  top: 0; /* Height of the TopBar */
   left: 0;
   right: 0;
   z-index: 1000; /* Slightly below TopBar */
@@ -68,15 +74,32 @@
 }
 
 .logo {
-  height: 75px;
-  width: 115px;
+  height: 95px;
+  width: 135px;
+  border-radius: 10px; /* Added to make the edges curved */
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Added shadow effect */
 }
 
 .logo-text {
   font-size: 1.5rem;
   font-weight: 700;
-  color: #5C4327 ;
+  color: #5C4327;
   display: inline-block;
+  transition: all 0.3s ease;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1); /* Added text shadow effect */
+}
+
+.navbar.scrolled .logo {
+  height: 75px;
+  width: 95px;
+  border-radius: 10px; /* Added to keep the edges curved when scrolled */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Added shadow effect */
+}
+
+.navbar.scrolled .logo-text {
+  font-size: 1.2rem;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1); /* Added text shadow effect */
 }
 
 /* Navigation Links */
