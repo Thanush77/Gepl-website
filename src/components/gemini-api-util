@@ -1,0 +1,35 @@
+import { GoogleGenerativeAI } from "@google/generative-ai";
+
+// Initialize the Gemini API
+const genAI = new GoogleGenerativeAI("AIzaSyCBupfy8aa13mHGtPAutQ4KNcN1j_KH-NU");
+const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+
+const generateGeminiResponse = async (messages) => {
+  try {
+    // Create a context from previous messages
+    const conversationContext = messages
+      .map(msg => `${msg.sender === 'user' ? 'User' : 'Assistant'}: ${msg.text}`)
+      .join('\n');
+
+    // Add system prompt for context
+    const systemPrompt = `You are Sarah, a customer service representative at Guardian Enviro Private Limited.
+    Company Details:
+    - Services: Industrial Wastewater Treatment, CETP, ETP, Air Pollution Control, Solid Waste Management
+    - Contact: +91 9980993104, solutions@guardianenviro.com
+    - Address: No 13 St Johns Church Road, Frazer Town, Bangalore 560005
+    
+    Previous conversation:
+    ${conversationContext}
+    
+    Respond professionally and keep responses concise.`;
+
+    // Generate response
+    const result = await model.generateContent(systemPrompt);
+    return result.response.text();
+  } catch (error) {
+    console.error('Gemini API Error:', error);
+    throw new Error('Failed to generate response');
+  }
+};
+
+export default generateGeminiResponse;

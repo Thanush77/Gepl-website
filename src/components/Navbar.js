@@ -1,88 +1,123 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback, memo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Link, useLocation } from "react-router-dom";
 import { FaHome, FaInfoCircle, FaTools, FaPhone, FaBars, FaTimes } from "react-icons/fa";
-import Logo from "../assets/logo_new.png"; 
+import Logo from "../assets/logo_new.png";
 import "../styles/Navbar.css";
-import TopBar from "./TopBar";
+
+// Animation variants
+const navbarVariants = {
+  hidden: { y: -100 },
+  visible: { y: 0, transition: { duration: 0.5 } }
+};
+
+const mobileMenuVariants = {
+  hidden: { opacity: 0, y: -20 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.3 } },
+  exit: { opacity: 0, y: -20, transition: { duration: 0.3 } }
+};
+
+// Navigation items configuration
+const NAV_ITEMS = [
+  { path: "/", label: "Home", icon: <FaHome /> },
+  { path: "/about", label: "About", icon: <FaInfoCircle /> },
+  { path: "/services", label: "Services", icon: <FaTools /> },
+  { path: "/contact", label: "Contact", icon: <FaPhone /> },
+  { path: "/careers", label: "Careers", icon: <FaPhone /> }
+];
+
+// Memoized Logo component
+const LogoSection = memo(() => (
+  <motion.div
+    className="logo-section"
+    whileHover={{ scale: 1.05 }}
+    whileTap={{ scale: 0.95 }}
+  >
+    <Link to="/" className="logo-link">
+      <img src={Logo} alt="Guardian Enviro" className="logo" />
+      <span className="logo-text">Guardian Enviro Private Limited</span>
+    </Link>
+  </motion.div>
+));
+
+// Memoized NavLink component
+const NavLink = memo(({ item, isActive }) => (
+  <motion.div
+    className="nav-link-wrapper"
+    whileHover={{ scale: 1.1 }}
+    whileTap={{ scale: 0.95 }}
+  >
+    <Link to={item.path} className={`nav-link ${isActive ? "active" : ""}`}>
+      <span className="nav-icon">{item.icon}</span>
+      <span className="nav-label">{item.label}</span>
+      {isActive && (
+        <motion.div className="active-indicator" layoutId="activeIndicator" />
+      )}
+    </Link>
+  </motion.div>
+));
+
+// Memoized MobileMenuItem component
+const MobileMenuItem = memo(({ item, isActive, onClick }) => (
+  <motion.div whileHover={{ x: 10 }} className="mobile-nav-item">
+    <Link
+      to={item.path}
+      className={isActive ? "active" : ""}
+      onClick={onClick}
+    >
+      <span className="nav-icon">{item.icon}</span>
+      <span className="nav-label">{item.label}</span>
+    </Link>
+  </motion.div>
+));
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const location = useLocation();
 
-  const navItems = [
-    { path: "/", label: "Home", icon: <FaHome /> },
-    { path: "/about", label: "About", icon: <FaInfoCircle /> },
-    { path: "/services", label: "Services", icon: <FaTools /> },
-    { path: "/contact", label: "Contact", icon: <FaPhone /> },
-    { path: "/careers", label: "Careers", icon: <FaPhone /> },
-  ];
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
-    };
-
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+  // Memoized scroll handler
+  const handleScroll = useCallback(() => {
+    setIsScrolled(window.scrollY > 20);
   }, []);
 
+  // Scroll effect
+  useEffect(() => {
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [handleScroll]);
+
+  // Route change effect
   useEffect(() => {
     setIsMobileMenuOpen(false);
   }, [location]);
+
+  // Memoized mobile menu toggle handler
+  const toggleMobileMenu = useCallback(() => {
+    setIsMobileMenuOpen(prev => !prev);
+  }, []);
+
   return (
-    
     <>
-    {/* <TopBar /> */}
       <motion.nav
         className={`navbar ${isScrolled ? "scrolled" : ""}`}
-        initial={{ y: -100 }}
-        animate={{ y: 0 }}
-        transition={{ duration: 0.5 }}
+        initial="hidden"
+        animate="visible"
+        variants={navbarVariants}
       >
         <div className="navbar-container">
-          {/* Logo Section */}
-          <motion.div
-            className="logo-section"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-          >
-            <Link to="/" className="logo-link">
-              <img src={Logo} alt="Guardian Enviro" className="logo" />
-              <span className="logo-text">Guardian Enviro Private Limited</span>
-            </Link>
-          </motion.div>
+          <LogoSection />
 
-          {/* Desktop Navigation */}
           <div className="nav-links-desktop">
-            {navItems.map((item) => (
-              <motion.div
+            {NAV_ITEMS.map(item => (
+              <NavLink
                 key={item.path}
-                className="nav-link-wrapper"
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                <Link
-                  to={item.path}
-                  className={`nav-link ${
-                    location.pathname === item.path ? "active" : ""
-                  }`}
-                >
-                  <span className="nav-icon">{item.icon}</span>
-                  <span className="nav-label">{item.label}</span>
-                  {location.pathname === item.path && (
-                    <motion.div
-                      className="active-indicator"
-                      layoutId="activeIndicator"
-                    />
-                  )}
-                </Link>
-              </motion.div>
+                item={item}
+                isActive={location.pathname === item.path}
+              />
             ))}
           </div>
 
-          {/* Contact Button */}
           <motion.button
             className="contact-button"
             whileHover={{ scale: 1.05 }}
@@ -91,10 +126,9 @@ const Navbar = () => {
             Get Started
           </motion.button>
 
-          {/* Mobile Menu Button */}
           <motion.div
             className="mobile-menu-button"
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            onClick={toggleMobileMenu}
             whileTap={{ scale: 0.9 }}
           >
             {isMobileMenuOpen ? <FaTimes /> : <FaBars />}
@@ -102,31 +136,22 @@ const Navbar = () => {
         </div>
       </motion.nav>
 
-      {/* Mobile Menu */}
       <AnimatePresence>
         {isMobileMenuOpen && (
           <motion.div
             className="mobile-menu"
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.3 }}
+            variants={mobileMenuVariants}
+            initial="hidden"
+            animate="visible"
+            exit="exit"
           >
-            {navItems.map((item) => (
-              <motion.div
+            {NAV_ITEMS.map(item => (
+              <MobileMenuItem
                 key={item.path}
-                whileHover={{ x: 10 }}
-                className="mobile-nav-item"
-              >
-                <Link
-                  to={item.path}
-                  className={location.pathname === item.path ? "active" : ""}
-                  onClick={() => setIsMobileMenuOpen(false)}
-                >
-                  <span className="nav-icon">{item.icon}</span>
-                  <span className="nav-label">{item.label}</span>
-                </Link>
-              </motion.div>
+                item={item}
+                isActive={location.pathname === item.path}
+                onClick={toggleMobileMenu}
+              />
             ))}
           </motion.div>
         )}
@@ -135,4 +160,4 @@ const Navbar = () => {
   );
 };
 
-export default Navbar;
+export default memo(Navbar);

@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@formspree/react": "^2.5.1",
+    "@google/generative-ai": "^0.21.0",
     "@react-three/drei": "^9.120.5",
     "@react-three/fiber": "^8.17.10",
     "animate.css": "^4.1.1",
