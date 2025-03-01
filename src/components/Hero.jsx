@@ -2,10 +2,8 @@ import React, { useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import { FaArrowRight, FaChartLine, FaShieldAlt, FaLeaf } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
-import AnimatedSection from "./AnimatedSection";
 import VideoPlayer from "./videoplayer.jsx";
 import "../styles/Hero.css";
-import ChatBox from "./ChatBox";
 
 const Hero = () => {
   const cursorRef = useRef(null);
@@ -64,16 +62,18 @@ const Hero = () => {
       <div className="cursor-trail" ref={cursorTrailRef}></div>
 
       <div className="hero-flex-container">
-        <div className="video-player-section">
+        <div className="video-section-wrapper">
           <VideoPlayer className="video-background" />
         </div>
-        
-        <div className="hero-content-section">
-          <HeroTitles />
-          <HeroDescription />
-          <HeroCTA />
+
+        <div className="content-grid">
+          <div className="hero-content-section">
+            <HeroBadge />
+            <HeroTitles />
+            <HeroDescription />
+            <HeroCTA />
+          </div>
           <HeroStats stats={stats} />
-          
         </div>
       </div>
     </section>
@@ -81,7 +81,13 @@ const Hero = () => {
 };
 
 const HeroBadge = () => (
-  <motion.div className="hero-badge interactive" whileHover={{ scale: 1.1 }}>
+  <motion.div 
+    className="hero-badge interactive"
+    initial={{ opacity: 0, y: -20 }}
+    animate={{ opacity: 1, y: 0 }}
+    transition={{ duration: 0.6 }}
+    whileHover={{ scale: 1.05 }}
+  >
     <FaShieldAlt className="badge-icon" />
     <span>Leading Environmental Solutions</span>
   </motion.div>
@@ -130,7 +136,7 @@ const HeroTitles = () => {
         variants={titleVariants}
         transition={{ delay: 0.2 }}
       >
-        <h2 className="hero-title" aria-label="Comprehensive Environmental Solutions for a Sustainable Future">
+        <h2 className="hero-subtitle" aria-label="Comprehensive Environmental Solutions for a Sustainable Future">
           Comprehensive Environmental Solutions{" "}
           <span className="gradient-text">for</span> a Sustainable Future
         </h2>
@@ -138,6 +144,7 @@ const HeroTitles = () => {
     </div>
   );
 };
+
 const HeroDescription = () => (
   <motion.p
     className="hero-description"
@@ -151,7 +158,6 @@ const HeroDescription = () => (
     optimization.
   </motion.p>
 );
-
 
 const HeroCTA = () => {
   const navigate = useNavigate();
@@ -181,14 +187,15 @@ const HeroCTA = () => {
   );
 };
 
-
-
 const HeroStats = ({ stats }) => (
   <div className="hero-stats">
     {stats.map((stat, index) => (
       <motion.div
         key={index}
         className="stat-card interactive"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.2 * index }}
         whileHover={{
           y: -5,
           boxShadow: "0 10px 20px rgba(0,0,0,0.2)",

@@ -10,6 +10,7 @@ import IWImage from '../assets/IW VIJAY.png';
 import ThanushImage from '../assets/thanush.jpeg'; 
 import "../styles/About.css";
 
+
 function About() {
   const stats = [
     { icon: <FaUsers />, number: "500+", label: "Clients Served" },

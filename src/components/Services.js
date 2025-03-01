@@ -1,13 +1,19 @@
-
 import React, { useState } from 'react';
-import { motion } from 'framer-motion';
-import { FaIndustry, FaBolt, FaTrash, FaWater, FaCog, FaTools, FaTint } from 'react-icons/fa';
+import { motion, AnimatePresence } from 'framer-motion';
+import { FaIndustry, FaBolt, FaTrash, FaWater, FaCog, FaTools, FaTint, FaRegNewspaper, FaHouseDamage, FaTimes } from 'react-icons/fa';
 import '../styles/Services.css';
-import { FaRegNewspaper } from "react-icons/fa";
-import { FaHouseDamage } from "react-icons/fa";
 
 const Services = () => {
   const [selectedService, setSelectedService] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
+
+  React.useEffect(() => {
+    // Simulate loading delay
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 1000);
+    return () => clearTimeout(timer);
+  }, []);
 
   const services = [
     {
@@ -75,62 +81,165 @@ const Services = () => {
     }
   ];
 
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1
+      }
+    }
+  };
+
+  const itemVariants = {
+    hidden: { y: 20, opacity: 0 },
+    visible: {
+      y: 0,
+      opacity: 1,
+      transition: {
+        duration: 0.5,
+        ease: "easeOut"
+      }
+    }
+  };
+
+  const modalVariants = {
+    hidden: {
+      opacity: 0,
+      scale: 0.8,
+      y: 50
+    },
+    visible: {
+      opacity: 1,
+      scale: 1,
+      y: 0,
+      transition: {
+        duration: 0.4,
+        ease: "easeOut"
+      }
+    },
+    exit: {
+      opacity: 0,
+      scale: 0.8,
+      y: 50,
+      transition: {
+        duration: 0.3
+      }
+    }
+  };
+
   return (
     <div className="services">
-      <div className="services-hero">
-        <h1>Our Services</h1>
-        <div className="hero-line"></div>
-        <p>Comprehensive Environmental Solutions for a Sustainable Future</p>
-      </div>
-
-      {selectedService ? (
-        <motion.div
-          className="modal-view"
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.3 }}
+      <motion.div
+        className="services-hero"
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8 }}
+      >
+        <motion.h1
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.2, duration: 0.8 }}
         >
-          <div className="modal-content">
-            <h2>{selectedService.title}</h2>
-            <p>{selectedService.details}</p>
-            <motion.button
-              className="back-btn"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              onClick={() => setSelectedService(null)}
+          Our Services
+        </motion.h1>
+        <motion.div
+          className="hero-line"
+          initial={{ scaleX: 0 }}
+          animate={{ scaleX: 1 }}
+          transition={{ delay: 0.4, duration: 0.8 }}
+        />
+        <motion.p
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.6, duration: 0.8 }}
+        >
+          Comprehensive Environmental Solutions for a Sustainable Future
+        </motion.p>
+      </motion.div>
+
+      <AnimatePresence mode="wait">
+        {selectedService ? (
+          <motion.div
+            className="modal-view"
+            initial="hidden"
+            animate="visible"
+            exit="exit"
+            variants={modalVariants}
+            key="modal"
+          >
+            <motion.div className="modal-content">
+              <motion.button
+                className="close-modal"
+                onClick={() => setSelectedService(null)}
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
+              >
+                <FaTimes />
+              </motion.button>
+              <h2>{selectedService.title}</h2>
+              <p>{selectedService.details}</p>
+              <motion.button
+                className="back-btn"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                onClick={() => setSelectedService(null)}
+              >
+                Back to Services
+              </motion.button>
+            </motion.div>
+          </motion.div>
+        ) : (
+          services.map((serviceCategory, idx) => (
+            <motion.div
+              key={idx}
+              className="services-section"
+              variants={containerVariants}
+              initial="hidden"
+              animate="visible"
+              exit="hidden"
             >
-              Back
-            </motion.button>
-          </div>
-        </motion.div>
-      ) : (
-        services.map((serviceCategory, idx) => (
-          <div key={idx} className="services-section">
-            <h2 className="category-title">{serviceCategory.category}</h2>
-            <div className="services-grid">
-              {serviceCategory.items.map((service, index) => (
-                <motion.div
-                  key={index}
-                  className="service-card"
-                  whileHover={{ scale: 1.03 }}
-                  onClick={() => setSelectedService(service)}
-                >
-                  <div className="service-icon">{service.icon}</div>
-                  <h3>{service.title}</h3>
-                  <p>{service.description}</p>
-                  <motion.button
-                    className="learn-more"
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
+              <motion.h2
+                className="category-title"
+                variants={itemVariants}
+              >
+                {serviceCategory.category}
+              </motion.h2>
+              <motion.div
+                className="services-grid"
+                variants={containerVariants}
+              >
+                {serviceCategory.items.map((service, index) => (
+                  <motion.div
+                    key={index}
+                    className="service-card"
+                    variants={itemVariants}
+                    whileHover={{ y: -8 }}
+                    onClick={() => setSelectedService(service)}
                   >
-                    Learn More
-                  </motion.button>
-                </motion.div>
-              ))}
-            </div>
-          </div>
-        ))
-      )}
+                    <motion.div
+                      className="service-icon"
+                      whileHover={{ rotate: 360 }}
+                      transition={{ duration: 0.6 }}
+                    >
+                      {service.icon}
+                    </motion.div>
+                    <h3>{service.title}</h3>
+                    <p>{service.description}</p>
+                    <motion.button
+                      className="learn-more"
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                    >
+                      Learn More
+                    </motion.button>
+                  </motion.div>
+                ))}
+              </motion.div>
+            </motion.div>
+          ))
+        )}
+      </AnimatePresence>
     </div>
   );
 };

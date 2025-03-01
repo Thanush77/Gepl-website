@@ -1,7 +1,17 @@
-import React from "react";
+import React, { Suspense, lazy } from "react";
 import { motion } from "framer-motion";
 import { FaLeaf, FaRecycle, FaSeedling, FaArrowRight } from "react-icons/fa";
+import { CardSkeleton } from "./SkeletonLoader";
 import "../styles/Home.css";
+
+// Lazy load feature cards
+const FeatureCard = lazy(() => {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve(import("./FeatureCard"));
+    }, 1000);
+  });
+});
 
 const Home = () => {
   const containerVariants = {
@@ -14,17 +24,26 @@ const Home = () => {
     }
   };
 
-  const featureVariants = {
-    hidden: { opacity: 0, y: 30 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.8,
-        ease: "easeOut"
-      }
+  const features = [
+    {
+      icon: <FaLeaf />,
+      title: "Sustainable Solutions",
+      description: "Implementing eco-friendly approaches and innovative technologies to create lasting environmental impact for a better tomorrow.",
+      color: "#2DFFF5"
+    },
+    {
+      icon: <FaRecycle />,
+      title: "Waste Management",
+      description: "Comprehensive waste handling solutions utilizing advanced recycling methods and sustainable disposal practices.",
+      color: "#B8B5A1"
+    },
+    {
+      icon: <FaSeedling />,
+      title: "Green Technology",
+      description: "Cutting-edge environmental technologies designed to preserve and protect our natural resources for future generations.",
+      color: "#4AE3B5"
     }
-  };
+  ];
 
   return (
     <div className="home-container">
@@ -47,52 +66,21 @@ const Home = () => {
           whileInView="visible"
           viewport={{ once: true, margin: "-100px" }}
         >
-          {[
-            {
-              icon: <FaLeaf />,
-              title: "Sustainable Solutions",
-              description: "Implementing eco-friendly approaches and innovative technologies to create lasting environmental impact for a better tomorrow.",
-              color: "#2DFFF5"
-            },
-            {
-              icon: <FaRecycle />,
-              title: "Waste Management",
-              description: "Comprehensive waste handling solutions utilizing advanced recycling methods and sustainable disposal practices.",
-              color: "#B8B5A1"
-            },
-            {
-              icon: <FaSeedling />,
-              title: "Green Technology",
-              description: "Cutting-edge environmental technologies designed to preserve and protect our natural resources for future generations.",
-              color: "#4AE3B5"
-            }
-          ].map((feature, index) => (
-            <motion.div
-              key={index}
-              className="feature-card"
-              variants={featureVariants}
-              whileHover={{ 
-                y: -10,
-                transition: { duration: 0.3 }
-              }}
-            >
-              <div className="feature-icon" style={{ color: feature.color }}>
-                {feature.icon}
-              </div>
-              <h3>{feature.title}</h3>
-              <p>{feature.description}</p>
-              <motion.div 
-                className="feature-overlay"
-                style={{ backgroundColor: feature.color }}
-                initial={{ opacity: 0 }}
-                whileHover={{ opacity: 0.03 }}
+          {features.map((feature, index) => (
+            <Suspense key={index} fallback={<CardSkeleton />}>
+              <FeatureCard
+                icon={feature.icon}
+                title={feature.title}
+                description={feature.description}
+                color={feature.color}
+                index={index}
               />
-            </motion.div>
+            </Suspense>
           ))}
         </motion.div>
       </section>
 
-      <section className="cta-section">
+      {/* <section className="cta-section">
         <motion.div
           className="cta-content"
           initial={{ opacity: 0, y: 30 }}
@@ -114,7 +102,7 @@ const Home = () => {
             <FaArrowRight className="button-icon" />
           </motion.button>
         </motion.div>
-      </section>
+      </section> */}
     </div>
   );
 };
